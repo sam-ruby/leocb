@@ -1,4 +1,4 @@
-%nav.navbar.navbar-default.navbar-static-top{:role=>"navigation"}
+%nav.navbar.navbar-inverse.navbar-static-top{:role=>"navigation"}
   .container
     .navbar-header
       %a.navbar-brand{href: '#'}
@@ -29,7 +29,7 @@
           %span.entries
             = cat.entries
 
-  .row
+  .row.company-search
     .col-md-6.col-md-offset-2
       %input.form-control{type: :search, placeholder: 'Search for Company'}
     .col-md-1
@@ -87,7 +87,7 @@
               = sectors[7].entries
 
 
-%nav.navbar.navbar-default.navbar-fixed-bottom{:role=>"navigation"}
+%nav.navbar.navbar-inverse.navbar-fixed-bottom{:role=>"navigation"}
   .container
     %ul.nav.navbar-nav
       %li.active

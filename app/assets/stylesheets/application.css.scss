@@ -21,6 +21,7 @@ span.cat {
   cursor: pointer;
   @extend .label;
   @extend .label-info;
+  background-color: #2992a7;
   span.entries {
     font-size: 11px;
     margin-top: 15px;
