@@ -13,3 +13,39 @@
  */
 
 @import 'bootstrap';
+
+span.cat {
+  display: inline-block;
+  margin: 5px 15px 20px 0px;
+  font-size: 14px;
+  cursor: pointer;
+  @extend .label;
+  @extend .label-info;
+  span.entries {
+    font-size: 11px;
+    margin-top: 15px;
+  }
+}
+.category-container {
+  text-align: center;
+  width: 100%;
+  .category-inner-block {
+    display: inline-block;
+  }
+}
+.company-search {
+  margin-top: 20px;
+}
+.sectors {
+  margin-top: 90px;
+  table {
+    td {
+      .alert {
+        width: 150px;
+        text-align: center;
+        cursor: pointer;
+      }
+      border-top: 0 !important;
+    }
+  }
+}

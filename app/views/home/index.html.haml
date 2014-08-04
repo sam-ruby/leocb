@@ -19,6 +19,74 @@
         %a{href: "#"}
           Log In
 
+.container
+  .category-container
+    .category-inner-block
+      - Category.all.each do |cat| 
+        %span.cat
+          = cat.name
+          %br
+          %span.entries
+            = cat.entries
+
+  .row
+    .col-md-6.col-md-offset-2
+      %input.form-control{type: :search, placeholder: 'Search for Company'}
+    .col-md-1
+      %button.btn.btn-primary{type: :button} Search
+    .col-md-1
+      %button.btn.btn-success{type: :button} Create a Company
+
+  - sectors = Sector.all
+  .panel.panel-info.sectors
+    .panel-heading
+      .panel-title Industry Sectors
+    .panel-body
+      %table.table
+        %tr
+          %td
+            .alert.alert-success
+              = sectors[0].name
+              %br
+              = sectors[0].entries
+          %td
+            .alert.alert-success
+              = sectors[1].name
+              %br
+              = sectors[1].entries
+          %td
+            .alert.alert-success
+              = sectors[2].name
+              %br
+              = sectors[2].entries
+          %td
+            .alert.alert-success
+              = sectors[3].name
+              %br
+              = sectors[3].entries
+        %tr
+          %td
+            .alert.alert-success
+              = sectors[4].name
+              %br
+              = sectors[4].entries
+          %td
+            .alert.alert-success
+              = sectors[5].name
+              %br
+              = sectors[5].entries
+          %td
+            .alert.alert-success
+              = sectors[6].name
+              %br
+              = sectors[6].entries
+          %td
+            .alert.alert-success
+              = sectors[7].name
+              %br
+              = sectors[7].entries
+
+
 %nav.navbar.navbar-default.navbar-fixed-bottom{:role=>"navigation"}
   .container
     %ul.nav.navbar-nav
@@ -28,4 +96,5 @@
       %li
         %a{href: "#"}
           Chinese
- 
+
+
