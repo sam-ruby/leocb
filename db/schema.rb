@@ -24,20 +24,75 @@ ActiveRecord::Schema.define(version: 20140803214135) do
     t.datetime "updated_at"
   end
 
+  add_index "categories", ["name"], name: "category_name_index", unique: true, using: :btree
+
   create_table "companies", force: true do |t|
+    t.integer  "sector_id"
+    t.integer  "company_id"
+    t.string   "website"
+    t.date     "start_date"
+    t.string   "location"
+    t.string   "status"
+    t.string   "stage"
+    t.string   "tags"
     t.string   "name"
     t.text     "description"
-    t.string   "thumbnail"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "sectors", force: true do |t|
+  add_index "companies", ["company_id", "name"], name: "company_name_company_id_index", unique: true, using: :btree
+
+  create_table "investors", force: true do |t|
+    t.integer  "company_id"
+    t.date     "investment_period"
     t.string   "name"
-    t.text     "description"
-    t.integer  "entries"
+    t.decimal  "investment_amount"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "investors", ["company_id"], name: "investors_company_id_index", using: :btree
+
+  create_table "mile_stones", force: true do |t|
+    t.integer  "company_id"
+    t.string   "name"
+    t.date     "milestone_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "mile_stones", ["company_id"], name: "mile_stones_company_id_index", using: :btree
+
+  create_table "persons", force: true do |t|
+    t.integer  "company_id"
+    t.string   "name"
+    t.string   "photo_url"
+    t.string   "blog_url"
+    t.string   "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "persons", ["company_id"], name: "persons_company_id_index", using: :btree
+
+  create_table "products", force: true do |t|
+    t.integer  "company_id"
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "products", ["company_id"], name: "products_company_id_index", using: :btree
+
+  create_table "sectors", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sectors", ["name"], name: "sector_name_index", unique: true, using: :btree
 
 end

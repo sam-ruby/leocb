@@ -25,9 +25,10 @@
       - Category.all.each do |cat| 
         %span.cat
           = cat.name
-          %br
-          %span.entries
-            = cat.entries
+          /
+            %br
+            %span.entries
+              = number_with_delimiter(cat.entries)
 
   .row.company-search
     .col-md-6.col-md-offset-2
@@ -37,55 +38,27 @@
     .col-md-1
       %button.btn.btn-success{type: :button} Create a Company
 
-  - sectors = Sector.all
+  - sectors = Company.select('sector_id, count(*) company_count').group('sector_id').order('company_count').reverse_order
   .panel.panel-info.sectors
     .panel-heading
       .panel-title Industry Sectors
     .panel-body
       %table.table
         %tr
-          %td
-            .alert.alert-success
-              = sectors[0].name
-              %br
-              = sectors[0].entries
-          %td
-            .alert.alert-success
-              = sectors[1].name
-              %br
-              = sectors[1].entries
-          %td
-            .alert.alert-success
-              = sectors[2].name
-              %br
-              = sectors[2].entries
-          %td
-            .alert.alert-success
-              = sectors[3].name
-              %br
-              = sectors[3].entries
+          - sectors[0..3].each do |sector|
+            %td
+              .alert.alert-success
+                = Sector.find(sector.sector_id).name
+                %br
+                = number_with_delimiter(sector.company_count)
+        
         %tr
-          %td
-            .alert.alert-success
-              = sectors[4].name
-              %br
-              = sectors[4].entries
-          %td
-            .alert.alert-success
-              = sectors[5].name
-              %br
-              = sectors[5].entries
-          %td
-            .alert.alert-success
-              = sectors[6].name
-              %br
-              = sectors[6].entries
-          %td
-            .alert.alert-success
-              = sectors[7].name
-              %br
-              = sectors[7].entries
-
+          - sectors[4..7].each do |sector|
+            %td
+              .alert.alert-success
+                = Sector.find(sector.sector_id).name
+                %br
+                = number_with_delimiter(sector.company_count)
 
 %nav.navbar.navbar-inverse.navbar-fixed-bottom{:role=>"navigation"}
   .container
