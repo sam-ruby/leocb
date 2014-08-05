@@ -1,7 +1,6 @@
 namespace :csvexport do
   desc "Parse the CSV file"
   task read: :environment do
-    require 'debugger'
     filepath = Rails.root.join('db', 'seed.txt')
     File.readlines(filepath).each_with_index {|line, line_num|
       next if line_num == 0 
