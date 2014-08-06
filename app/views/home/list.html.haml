@@ -1,7 +1,7 @@
 - content_for :main_content do
   .row
     .col-md-8
-      .panel.panel-default
+      .panel.panel-info
         .panel-heading
           .panel-title
             Companies
@@ -34,7 +34,7 @@
 
     .col-md-4
       .list-group.sector-cont
-        %a.list-group-item.disabled{href: '#'}
+        %a.list-group-item.list-group-item-info{href: '#'}
           Industry Sectors
         - sectors = Company.select('sector_id, count(*) company_count').group('sector_id').order('company_count').reverse_order
         - sectors.each do |sector|
@@ -44,7 +44,7 @@
             %span.badge= sector.company_count 
             = sec_name
       
-      .panel.panel-default.news-cont
+      .panel.panel-info.news-cont
         .panel-heading
           .panel-title
             News
