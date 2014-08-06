@@ -1,73 +1,16 @@
-%nav.navbar.navbar-inverse.navbar-static-top{:role=>"navigation"}
-  .container
-    .navbar-header
-      %a.navbar-brand{href: '#'}
-        Crunch Base
-    %ul.nav.navbar-nav
-      %li.active
-        %a{href: "#"}
-          English
-      %li
-        %a{href: "#"}
-          Chinese
-    
-    %ul.nav.navbar-nav.navbar-right
-      %li
-        %a{href: "#"}
-          Sign Up
-      %li
-        %a{href: "#"}
-          Log In
-
-.container
-  .category-container
-    .category-inner-block
-      - Category.all.each do |cat| 
-        %span.cat
-          = cat.name
-          /
-            %br
-            %span.entries
-              = number_with_delimiter(cat.entries)
-
-  .row.company-search
-    .col-md-6.col-md-offset-2
-      %input.form-control{type: :search, placeholder: 'Search for Company'}
-    .col-md-1
-      %button.btn.btn-primary{type: :button} Search
-    .col-md-1
-      %button.btn.btn-success{type: :button} Create a Company
-
+- content_for :main_content do
   - sectors = Company.select('sector_id, count(*) company_count').group('sector_id').order('company_count').reverse_order
   .panel.panel-info.sectors
     .panel-heading
       .panel-title Industry Sectors
     .panel-body
-      %table.table
-        %tr
-          - sectors[0..3].each do |sector|
+      %table.table.sectors
+        - sectors.each_slice(4) do |sectors|
+          %tr
+          - sectors.each do |sector|
             %td
-              .alert.alert-success
-                = Sector.find(sector.sector_id).name
-                %br
-                = number_with_delimiter(sector.company_count)
-        
-        %tr
-          - sectors[4..7].each do |sector|
-            %td
-              .alert.alert-success
-                = Sector.find(sector.sector_id).name
-                %br
-                = number_with_delimiter(sector.company_count)
-
-%nav.navbar.navbar-inverse.navbar-fixed-bottom{:role=>"navigation"}
-  .container
-    %ul.nav.navbar-nav
-      %li.active
-        %a{href: "#"}
-          English
-      %li
-        %a{href: "#"}
-          Chinese
-
-
+              %a{href: "/c_list?sector_id=#{sector.sector_id}"}
+                .alert.alert-success
+                  = Sector.find(sector.sector_id).name
+                  %br
+                  = number_with_delimiter(sector.company_count)

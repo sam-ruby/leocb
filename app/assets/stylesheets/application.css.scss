@@ -27,6 +27,12 @@ span.cat {
     font-size: 11px;
     margin-top: 15px;
   }
+  a {
+    color: white;
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
 .category-container {
   text-align: center;
@@ -35,11 +41,21 @@ span.cat {
     display: inline-block;
   }
 }
+.sector-cont {
+  .list-group-item {
+    padding: 5px 15px;
+  }
+}
+.news-cont {
+  img {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
 .company-search {
   margin-top: 20px;
 }
 .sectors {
-  margin-top: 90px;
   table {
     td {
       .alert {
@@ -50,5 +66,54 @@ span.cat {
       border-top: 0 !important;
     }
     margin-bottom: 0px;
+  }
+  margin-bottom: 10px;
+}
+.main-content {
+  margin-top: 45px;
+}
+table.sectors {
+  a {
+    color: #3c763d;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+table.companies {
+  td {
+    width: 50%;
+    border-top: 0;
+  }
+  .comp-cont {
+    .c-picture {
+      img {
+        width: 100%;
+      }
+    }
+    .caption {
+      padding-left: 20px;
+      border-top: 1px solid #ccc;
+      .c-info {
+        a {
+          padding: 20px 5px 0 0;
+          float: right;
+        }
+      }
+    }
+    a {
+      text-decoration: none;
+    }
+    .c-name {
+      height: 50px;
+      overflow: hidden;
+      margin-bottom: 7px;
+    }
+    .c-info {
+      height: 40px;
+      overflow: hidden;
+      margin-bottom: 5px;
+    }
+    border: 1px solid #ccc;
   }
 }

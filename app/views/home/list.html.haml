@@ -1,0 +1,59 @@
+- content_for :main_content do
+  .row
+    .col-md-8
+      .panel.panel-default
+        .panel-heading
+          .panel-title
+            Companies
+        .panel-body
+          %table.table.companies
+            %tbody
+              - pic_index = 0
+              - @companies.each_slice(2) do |cs|
+                %tr
+                  - cs.each do |c|
+                    - pic_index += 1
+                    - if pic_index == 5
+                      - pic_index = 1
+                    %td
+                      .comp-cont
+                        %a{href: "/company?id=#{c.id}"}
+                          %span.c-picture
+                            %img{src: "/assets/companies#{pic_index}.jpeg"}
+                        .caption
+                          %a{href: "/company?id=#{c.id}"}
+                            .c-name
+                              %h4
+                                = c.name.gsub(/\"/, '')
+                          %a{href: "/company?id=#{c.id}"}
+                            .c-info
+                              - if c.website
+                                %a{href: c.website, target: '_blank'}
+                                  Website
+                              = c.sector.name + ', ' + c.location.gsub(/\"/, '')
+
+    .col-md-4
+      .list-group.sector-cont
+        %a.list-group-item.disabled{href: '#'}
+          Industry Sectors
+        - sectors = Company.select('sector_id, count(*) company_count').group('sector_id').order('company_count').reverse_order
+        - sectors.each do |sector|
+          - sec_name = Sector.find(sector.sector_id).name
+          - next if sec_name !~ /[a-zA-Z]+/
+          %a.list-group-item{href: "/c_list?sector_id=#{sector.sector_id}"}
+            %span.badge= sector.company_count 
+            = sec_name
+      
+      .panel.panel-default.news-cont
+        .panel-heading
+          .panel-title
+            News
+        .panel-body
+          .row
+            .col-md-6.col-lg-6.col-sm-6
+              %img{src: '/assets/news_3.jpg'}
+          .news-cont
+            Tracking The Rise Of Micro-Funds
+            Posted July 24, 2014
+
+

@@ -1,0 +1,43 @@
+%nav.navbar.navbar-inverse.navbar-static-top{:role=>"navigation"}
+  .container
+    .navbar-header
+      %a.navbar-brand{href: '/'}
+        New Crunch Base
+    %ul.nav.navbar-nav
+      %li.active
+        %a{href: "/"}
+          English
+      %li
+        %a{href: "/"}
+          Chinese
+    
+    %ul.nav.navbar-nav.navbar-right
+      %li
+        %a{href: "/"}
+          Sign Up
+      %li
+        %a{href: "/"}
+          Log In
+
+.container
+  .category-container
+    .category-inner-block
+      - Category.all.each do |cat| 
+        %span.cat
+          %a{href: '/c_list'}
+            = cat.name
+          /
+            %br
+            %span.entries
+              = number_with_delimiter(cat.entries)
+  
+  .row.company-search
+    .col-md-6.col-md-offset-2
+      %input.form-control{type: :search, placeholder: 'Search for Company'}
+    .col-md-1
+      %button.btn.btn-primary{type: :button} Search
+    .col-md-1
+      %button.btn.btn-success{type: :button} Create a Company
+  
+  .main-content
+    = yield :main_content

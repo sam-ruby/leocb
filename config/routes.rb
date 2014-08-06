@@ -54,4 +54,6 @@ Leocb::Application.routes.draw do
   #     resources :products
   #   end
   root 'home#index'
+  get '/c_list' => 'home#list'
+  get '/company' => 'home#company'
 end
