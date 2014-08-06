@@ -36,10 +36,9 @@
       .list-group.sector-cont
         %a.list-group-item.list-group-item-info{href: '#'}
           Industry Sectors
-        - sectors = Company.select('sector_id, count(*) company_count').group('sector_id').order('company_count').reverse_order
+        - sectors = Company.select('sector_id, count(*) company_count').where('sector_id != 16').group('sector_id').order('company_count').reverse_order
         - sectors.each do |sector|
           - sec_name = Sector.find(sector.sector_id).name
-          - next if sec_name !~ /[a-zA-Z]+/
           %a.list-group-item{href: "/c_list?sector_id=#{sector.sector_id}"}
             %span.badge= sector.company_count 
             = sec_name

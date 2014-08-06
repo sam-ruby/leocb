@@ -1,10 +1,10 @@
 - content_for :main_content do
-  - sectors = Company.select('sector_id, count(*) company_count').group('sector_id').order('company_count').reverse_order
+  - sectors = Company.select('sector_id, count(*) company_count').where('sector_id != 16').group('sector_id').order('company_count').reverse_order
   .panel.panel-info.sectors
     .panel-heading
       .panel-title Industry Sectors
     .panel-body
-      %table.table.sectors
+      %table.table.table-condensed.sectors
         - sectors.each_slice(4) do |sectors|
           %tr
           - sectors.each do |sector|
@@ -12,5 +12,5 @@
               %a{href: "/c_list?sector_id=#{sector.sector_id}"}
                 .alert.alert-success
                   = Sector.find(sector.sector_id).name
-                  %br
-                  = number_with_delimiter(sector.company_count)
+                  %span.badge.pull-right
+                    = number_with_delimiter(sector.company_count)
