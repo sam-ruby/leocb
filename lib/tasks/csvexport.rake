@@ -116,13 +116,12 @@ end
 namespace :csvexport do
   desc "Parse the CSV file"
   task read: :environment do
-=begin
     filepath = Rails.root.join('db', 'leo_chn.txt')
     ActiveRecord::Base.connection.schema_search_path = 'chinese'
     file = File.open(filepath, 'r:utf-16')
     leoMigration = LeoMigration.new(file, :zh)
+    
     ActiveRecord::Base.connection.schema_search_path = 'public'
-=end
     filepath = Rails.root.join('db', 'seed.txt')
     file = File.open(filepath)
     leoMigration = LeoMigration.new(file)
