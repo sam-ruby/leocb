@@ -28,9 +28,11 @@ class HomeController < ApplicationController
     if params[:locale] and params[:locale] == 'zh'
       ActiveRecord::Base.connection.schema_search_path =  'chinese'
       I18n.locale = :zh
+      session[:locale] = :zh
     elsif params[:locale] and params[:locale] == 'en'
       ActiveRecord::Base.connection.schema_search_path =  'public'
       I18n.locale = :en
+      session[:locale] = :en
     end
   end
 end

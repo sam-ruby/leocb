@@ -4,7 +4,7 @@
       %a.navbar-brand{href: '/'}
         New Crunch Base
     %ul.nav.navbar-nav
-      - if I18n.locale == :en
+      - if session[:locale] == :en
         %li.active
           %a{href: "/?locale=en"}
             English
