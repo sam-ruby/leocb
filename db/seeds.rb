@@ -6,9 +6,16 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Category.create(name: 'Companies', entries: 110430)
-Category.create(name: 'People', entries: 12530)
-Category.create(name: 'Investment Firms', entries: 1330)
-Category.create(name: 'Incubators', entries: 430)
-Category.create(name: 'Funding Events', entries: 225)
-Category.create(name: 'News', entries: 2250003)
+def seed
+  Category.create(name: 'Companies', entries: 110430)
+  Category.create(name: 'People', entries: 12530)
+  Category.create(name: 'Investment Firms', entries: 1330)
+  Category.create(name: 'Incubators', entries: 430)
+  Category.create(name: 'Funding Events', entries: 225)
+  Category.create(name: 'News', entries: 2250003)
+end
+
+ActiveRecord::Base.connection.schema_search_path = 'public'
+seed()
+ActiveRecord::Base.connection.schema_search_path = 'chinese'
+seed()

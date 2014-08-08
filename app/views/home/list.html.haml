@@ -17,15 +17,15 @@
                       - pic_index = 1
                     %td
                       .comp-cont
-                        %a{href: "/company?id=#{c.id}"}
+                        %a{href: "/company?c_id=#{c.id}"}
                           %span.c-picture
                             %img{src: "http://www.grapelinemedia.com/img/companies#{pic_index}.jpeg"}
                         .caption
-                          %a{href: "/company?id=#{c.id}"}
+                          %a{href: "/company?c_id=#{c.id}"}
                             .c-name
                               %h4
                                 = c.name.gsub(/\"/, '')
-                          %a{href: "/company?id=#{c.id}"}
+                          %a{href: "/company?c_id=#{c.id}"}
                             .c-info
                               - if c.website
                                 %a{href: c.website, target: '_blank'}

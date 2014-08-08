@@ -4,12 +4,22 @@
       %a.navbar-brand{href: '/'}
         New Crunch Base
     %ul.nav.navbar-nav
-      %li.active
-        %a{href: "/"}
-          English
-      %li
-        %a{href: "/"}
-          Chinese
+      - if I18n.locale == :en
+        %li.active
+          %a{href: "/?locale=en"}
+            English
+        
+        %li
+          %a{href: "/?locale=zh"}
+            Chinese
+      - else
+        %li
+          %a{href: "/?locale=en"}
+            English
+
+        %li.active
+          %a{href: "/?locale=zh"}
+            Chinese
     
     %ul.nav.navbar-nav.navbar-right
       %li

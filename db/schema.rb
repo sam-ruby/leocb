@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140803214135) do
+ActiveRecord::Schema.define(version: 20140808044646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20140803214135) do
 
   create_table "mile_stones", force: true do |t|
     t.integer  "company_id"
-    t.string   "name"
+    t.text     "name"
     t.date     "milestone_date"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -85,6 +85,10 @@ ActiveRecord::Schema.define(version: 20140803214135) do
   end
 
   add_index "products", ["company_id"], name: "products_company_id_index", using: :btree
+
+  create_table "sam", id: false, force: true do |t|
+    t.string "name", limit: 100
+  end
 
   create_table "sectors", force: true do |t|
     t.string   "name"

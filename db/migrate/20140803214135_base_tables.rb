@@ -1,5 +1,10 @@
 class BaseTables < ActiveRecord::Migration
   def change
+    reversible do |dir|
+      dir.up {
+        ActiveRecord::Base.connection.schema_search_path = 'public'
+      }
+    end
     create_table(:categories) do |t|
       t.string   "name"
       t.text     "description"
@@ -71,12 +76,18 @@ class BaseTables < ActiveRecord::Migration
 
     create_table(:mile_stones) do |t|
       t.belongs_to :company
-      t.string 'name'
+      t.text 'name'
       t.date 'milestone_date'
       t.datetime "created_at"
       t.datetime "updated_at"
     end
     add_index :mile_stones, :company_id,
       {name: 'mile_stones_company_id_index'} 
+    
+    reversible do |dir|
+      dir.up {
+        ActiveRecord::Base.connection.schema_search_path = 'public'
+      }
+    end
   end
 end

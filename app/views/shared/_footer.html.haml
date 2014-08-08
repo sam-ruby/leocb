@@ -1,9 +1,19 @@
-%nav.navbar.navbar-inverse{:role=>"navigation"}
+%nav.navbar.navbar-inverse.navbar-fixed-bottom{:role=>"navigation"}
   .container
     %ul.nav.navbar-nav
-      %li.active
-        %a{href: "#"}
-          English
-      %li
-        %a{href: "#"}
-          Chinese
+      - if I18n.locale == :en
+        %li.active
+          %a{href: "/?locale=en"}
+            English
+        
+        %li
+          %a{href: "/?locale=zh"}
+            Chinese
+      - else
+        %li
+          %a{href: "/?locale=en"}
+            English
+
+        %li.active
+          %a{href: "/?locale=zh"}
+            Chinese
