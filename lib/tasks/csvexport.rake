@@ -1,7 +1,8 @@
 class LeoMigration
-  attr_accessor :company, :sector
+  attr_accessor :company, :sector, :lang
   def initialize(file, lang='en')
     line_num = 0
+    self.lang = lang
     while (line = file.gets) do
       line_num += 1
       next if line_num == 1 
@@ -39,8 +40,8 @@ class LeoMigration
 
       10.times do |x|
         create_milestone(
-          fields[start_index..start_index+2])
-        start_index += 3
+          fields[start_index..start_index+1])
+        start_index += 2
       end
     end
   end
@@ -68,7 +69,8 @@ class LeoMigration
   end
 
   def create_person(pers_fields)
-    unless pers_fields.nil? or pers_fields[1].nil? or pers_fields[1].empty?
+    unless pers_fields.nil? or pers_fields[1].nil? or
+      pers_fields[1].empty?
       person = Person.find_or_create_by(
         photo_url: pers_fields[0],
         name: pers_fields[1],
@@ -80,21 +82,29 @@ class LeoMigration
   end
 
   def create_investor(inv_fields)
-    unless inv_fields.nil? or inv_fields[0].nil? or inv_fields[0].empty?
-      investor = Investor.find_or_create_by(
-        #investment_period: Date.parse(inv_fields[0]),
-        name: inv_fields[0]
-      )
+    unless inv_fields.nil? or inv_fields[0].nil? or
+      inv_fields[0].empty?
+      if self.lang == 'en'
+        investor = Investor.find_or_create_by(
+          investment_period: Date.parse(inv_fields[0]),
+          name: inv_fields[2]
+        )
+      else
+        investor = Investor.find_or_create_by(
+          name: inv_fields[2]
+        )
+      end
       investor.company = self.company
       investor.save
     end
   end
 
   def create_product(prod_fields)
-    unless prod_fields.nil? or prod_fields[0].nil? or prod_fields[0].empty?
+    unless prod_fields.nil? or prod_fields[0].nil? or
+      prod_fields[0].empty?
       product = Product.find_or_create_by(
         name: prod_fields[0],
-        description: prod_fields[0]
+        description: prod_fields[1]
       )
       product.company = self.company
       product.save
@@ -102,11 +112,18 @@ class LeoMigration
   end
         
   def create_milestone(ms_fields)
-    unless ms_fields.nil? or ms_fields[2].nil? or ms_fields[2].empty?
-      ms = MileStone.find_or_create_by(
-        name: ms_fields[2],
-        #milestone_date: Date.parse(ms_fields[1])
-      )
+    unless ms_fields.nil? or ms_fields[1].nil? or
+      ms_fields[1].empty?
+      if self.lang == 'en'
+        ms = MileStone.find_or_create_by(
+          name: ms_fields[0],
+          milestone_date: Date.parse(ms_fields[1])
+        )
+      else
+        ms = MileStone.find_or_create_by(
+          name: ms_fields[0]
+        )
+      end
       ms.company = self.company
       ms.save
     end

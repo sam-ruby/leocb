@@ -52,7 +52,5 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: leocb_production
+  database: leocb
   pool: 5
-  username: leocb
-  password:

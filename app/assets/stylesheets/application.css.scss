@@ -119,6 +119,13 @@ table.companies {
   }
 }
 .company-details {
+  table {
+    margin-left: 10px;
+    margin-bottom: 0 !important;
+    td {
+      border-top: 0 !important;
+    }
+  }
   .company {
     img {
       float: right;
@@ -127,11 +134,11 @@ table.companies {
       margin-left: 10px;
     }
     table {
-      margin-left: 10px;
       tr {
         td:first-child {
           color: #666;
           font-weight: bold;
+          width: 25%
         }
       }
     }
@@ -143,15 +150,11 @@ table.companies {
       width: 60px;
       margin-right: 10px;
     }
+  }
+  .investors {
     table {
-      margin-bottom: 0;
-      tr {
-        td {
-          border-top: 0px;
-        }
-      }
+      margin-left: 10px;
     }
-
   }
 }
 

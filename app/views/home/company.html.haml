@@ -27,6 +27,7 @@
           - if @company.investors.length > 0
             - total_amt = 0
             - @company.investors.each do |inv|
+              - next if inv.investment_amount.nil?
               - total_amt += inv.investment_amount
             - if total_amt > 0
               %tr
@@ -39,37 +40,75 @@
               %td= @company.sector.name.gsub(/"/, '')
 
           
-      .panel.panel-info.team
-        .panel-heading
-          .panel-title
-            Team
-        .panel-body
-          - if @company.persons.length > 0
-            %table.table.table-condensed
-              %tbody
-                - @company.persons.each_slice(2) do |persons|
-                  %tr
-                    - persons.each do|person|
-                      %td
-                        %img.person{src: person.photo_url}
-                        = person.name.gsub(/"/, '')
-                        %br
-                        = person.position.gsub(/"/, '')
+      - if @company.persons.length > 0
+        .panel.panel-info.team
+          .panel-heading
+            .panel-title
+              Team
+          %table.table.table-condensed
+            %tbody
+              - @company.persons.each_slice(2) do |persons|
+                %tr
+                  - persons.each do|person|
+                    %td
+                      %img.person{src: person.photo_url}
+                      = person.name.gsub(/"/, '')
+                      %br
+                      = person.position.gsub(/"/, '')
           
       
-      - if @company.investors.length > 1
+      - if @company.investors.length > 0 
+        .panel.panel-info.investors
+          .panel-heading
+            .panel-title Funding Rounds (#{@company.investors.length})
+          %table.table.table-condensed
+            - img = nil
+            - @company.investors.each do |investor|
+              - if img.nil? or img =~ /seriesa.png/
+                - img = '/assets/seriesb.png'
+              - elsif img =~ /serieb.png/
+                - img = '/assets/seriesa.png'
+              %tr
+                %td.img 
+                  %img{src: img}
+                %td.details
+                  .investment-details
+                    .amount
+                      = investor.investment_amount
+                    .period
+                      = investor.investment_period
+                    .name
+                      Investors: &nbsp;
+                      = investor.name
+          
+      - if @company.products.length > 0 
         .panel.panel-info
           .panel-heading
-            .panel-title Funding Rounds #{@company.investors.length}
-          .panel-body
+            .panel-title
+              Products (#{@company.products.length})
           
-      .panel.panel-info
-        .panel-heading
-          .panel-title
-            Products
-        .panel-body
+          %table.table.table-condensed
+            - img = nil
+            - prod_images = %w{product1.jpg product2.png product3.png product4.png}
+            - i = 0
+            - @company.products.each_slice(2) do |prods|
+              %tr
+                - prods.each do |prod|
+                  - img = "/assets/#{prod_images[i]}"
+                  - i += 1
+                  - if i > 3
+                    - i = 0
+                  %td.img
+                    %img{src: img}
+                  %td
+                    .product-details
+                      .name
+                        = prod.name
+                      .description
+                        = prod.description
 
-      .panel.panel-info
+      /
+        .panel.panel-info
         .panel-heading
           .panel-title
             Competitors

@@ -35,7 +35,7 @@
       - Category.all.each do |cat| 
         %span.cat
           %a{href: '/c_list'}
-            = cat.name
+            = t(cat.name)
           /
             %br
             %span.entries

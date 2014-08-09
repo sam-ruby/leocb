@@ -15,7 +15,7 @@ class HomeController < ApplicationController
   end
 
   def company
-    comp_id = params[:comp_id].to_i
+    comp_id = params[:c_id].to_i
     if comp_id == 0
       @company = Company.first
     else

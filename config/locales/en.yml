@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  Companies: "Commpanies"
+zh:
+  Companies: '公司'
