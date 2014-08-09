@@ -17,15 +17,14 @@
                       - pic_index = 1
                     %td
                       .comp-cont
-                        %a{href: "/company?c_id=#{c.id}"}
+                        = link_to(url_for(action: :company, c_id: c.id)) do
                           %span.c-picture
                             %img{src: "/assets/companies#{pic_index}.jpeg"}
                         .caption
-                          %a{href: "/company?c_id=#{c.id}"}
+                          = link_to(url_for(action: :company, c_id: c.id)) do
                             .c-name
                               %h4
                                 = c.name.gsub(/\"/, '')
-                          %a{href: "/company?c_id=#{c.id}"}
                             .c-info
                               - if c.website
                                 %a{href: c.website, target: '_blank'}
@@ -39,7 +38,7 @@
         - sectors = Company.select('sector_id, count(*) company_count').where('sector_id != 16').group('sector_id').order('company_count').reverse_order
         - sectors.each do |sector|
           - sec_name = Sector.find(sector.sector_id).name
-          %a.list-group-item{href: "/c_list?sector_id=#{sector.sector_id}"}
+          = link_to(url_for(action: :list, sector_id: sector.sector_id), class: 'list-group-item') do
             %span.badge= sector.company_count 
             = sec_name
       
@@ -50,7 +49,7 @@
         .panel-body
           .row
             .col-md-6.col-lg-6.col-sm-6
-              %img{src: "http://www.grapelinemedia.com/img/news_3.jpg"}
+              %img{src: "/assets/news_3.jpg"}
           .news-cont
             Tracking The Rise Of Micro-Funds
             Posted July 24, 2014

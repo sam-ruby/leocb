@@ -1,7 +1,7 @@
 %nav.navbar.navbar-inverse{:role=>"navigation"}
   .container
     %ul.nav.navbar-nav
-      - if session[:locale] == :en
+      - if params[:locale] == 'en'
         %li.active
           %a{href: "/?locale=en"}
             English

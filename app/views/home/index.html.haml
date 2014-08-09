@@ -9,7 +9,7 @@
           %tr
           - sectors.each do |sector|
             %td
-              %a{href: "/c_list?sector_id=#{sector.sector_id}"}
+              = link_to (url_for(action: 'list', sector_id: sector.sector_id)) do
                 .alert.alert-success
                   = Sector.find(sector.sector_id).name
                   %span.badge.pull-right

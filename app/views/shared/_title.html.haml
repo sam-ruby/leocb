@@ -4,7 +4,7 @@
       %a.navbar-brand{href: '/'}
         New Crunch Base
     %ul.nav.navbar-nav
-      - if session[:locale] == :en
+      - if params[:locale] == 'en'
         %li.active
           %a{href: "/?locale=en"}
             English
@@ -34,8 +34,7 @@
     .category-inner-block
       - Category.all.each do |cat| 
         %span.cat
-          %a{href: '/c_list'}
-            = t(cat.name)
+          = link_to t(cat.name), action: :list 
           /
             %br
             %span.entries
