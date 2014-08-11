@@ -130,6 +130,54 @@ class LeoMigration
   end
 end
 
+class LeoMigrationSecond < LeoMigration
+  def initialize(file, lang='en')
+    line_num = 0
+    self.lang = lang
+    while (line = file.gets) do
+      line_num += 1
+      next if line_num == 1 
+      fields = line.split(/\t/).map {|x|x.strip}
+      next if fields[0].empty?
+      create_sector(fields[7,8])
+      create_company(fields)
+
+      start_index = 10
+      10.times do |x|
+        create_person(
+          fields[start_index..start_index+3])
+        start_index += 4
+      end
+
+      5.times do |x|
+        create_investor(
+          fields[start_index..start_index+2])
+        start_index += 3
+      end
+      
+      5.times do |x|
+        create_product(
+          fields[start_index..start_index+1])
+        start_index += 2
+      end
+
+      # skip competitor
+      # 3
+      if lang == 'en'
+        start_index += 1
+      else
+        start_index += 3
+      end
+
+      10.times do |x|
+        create_milestone(
+          fields[start_index..start_index+1])
+        start_index += 2
+      end
+    end
+  end
+end
+
 namespace :csvexport do
   desc "Parse the CSV file"
   task read: :environment do
@@ -144,4 +192,15 @@ namespace :csvexport do
     leoMigration = LeoMigration.new(file)
     ActiveRecord::Base.connection.schema_search_path = 'public'
   end
+  
+  desc "Parse the Second Data set"
+  task read_second: :environment do
+    filepath = Rails.root.join('db', 'leo_second.txt')
+    ActiveRecord::Base.connection.schema_search_path = 
+      'chinese'
+    file = File.open(filepath, 'r:utf-16')
+    leoMigration = LeoMigrationSecond.new(file, :zh)
+    ActiveRecord::Base.connection.schema_search_path = 'public'
+  end
+
 end

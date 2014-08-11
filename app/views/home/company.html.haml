@@ -3,12 +3,21 @@
     .col-md-8
       .panel.panel-info.company
         .panel-heading
-          .panel-title
-            = @company.name.gsub(/"/, '') || ' - '
+          .panel-title Company Overview
         .panel-body
-          %img{src: 'http://www.grapelinemedia.com/img/companies1.jpeg'}
+          - if @company.website
+            %a{href: @company.website, target: '_blank'}
+              %img{src: '/assets/companies1.jpeg'}
+          - else
+            %img{src: '/assets/companies1.jpeg'}
+
           = @company.description.gsub(/"/, '') || '-'
         %table.table.table-condensed
+          - if @company.name
+            %tr
+              %td Name
+              %td= @company.name.gsub(/"/, '') || ' - '
+
           - if @company.start_date
             %tr
               %td Founded
@@ -38,6 +47,28 @@
             %tr
               %td Sector
               %td= @company.sector.name.gsub(/"/, '')
+          
+          - if @company.status
+            %tr
+              %td Status
+              %td= @company.status.gsub(/"/, '')
+          
+          - if @company.stage
+            %tr
+              %td Stage
+              %td= @company.stage.gsub(/"/, '')
+          
+          - if @company.tags
+            %tr
+              %td Tags
+              %td= @company.tags.gsub(/"/, '')
+          
+          - if @company.website
+            %tr
+              %td Website
+              %td
+                %a{href: @company.website, target: '_blank'}
+                  = @company.website
 
           
       - if @company.persons.length > 0
@@ -45,16 +76,17 @@
           .panel-heading
             .panel-title
               Team
-          %table.table.table-condensed
-            %tbody
-              - @company.persons.each_slice(2) do |persons|
-                %tr
-                  - persons.each do|person|
-                    %td
-                      %img.person{src: person.photo_url}
-                      = person.name.gsub(/"/, '')
-                      %br
-                      = person.position.gsub(/"/, '')
+          .panel-body
+            %table.table.table-condensed
+              %tbody
+                - @company.persons.each_slice(2) do |persons|
+                  %tr
+                    - persons.each do|person|
+                      %td
+                        %img.person{src: person.photo_url}
+                        = person.name.gsub(/"/, '')
+                        %br
+                        = person.position.gsub(/"/, '')
           
       
       - if @company.investors.length > 0 
@@ -86,26 +118,26 @@
           .panel-heading
             .panel-title
               Products (#{@company.products.length})
-          
-          %table.table.table-condensed
-            - img = nil
-            - prod_images = %w{product1.jpg product2.png product3.png product4.png}
-            - i = 0
-            - @company.products.each_slice(2) do |prods|
-              %tr
-                - prods.each do |prod|
-                  - img = "/assets/#{prod_images[i]}"
-                  - i += 1
-                  - if i > 3
-                    - i = 0
-                  %td.img
-                    %img{src: img}
-                  %td
-                    .product-details
-                      .name
-                        = prod.name
-                      .description
-                        = prod.description
+          .panel-body
+            %table.table.table-condensed
+              - img = nil
+              - prod_images = %w{product1.jpg product2.png product3.png product4.png}
+              - i = 0
+              - @company.products.each_slice(2) do |prods|
+                %tr
+                  - prods.each do |prod|
+                    - img = "/assets/#{prod_images[i]}"
+                    - i += 1
+                    - if i > 3
+                      - i = 0
+                    %td.img
+                      %img{src: img}
+                    %td
+                      .product-details
+                        .name
+                          = prod.name
+                        .description
+                          = prod.description
 
       /
         .panel.panel-info

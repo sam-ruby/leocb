@@ -1,8 +1,13 @@
 - content_for :main_content do
   - sectors = Company.select('sector_id, count(*) company_count').where('sector_id != 16').group('sector_id').order('company_count').reverse_order
-  .panel.panel-info.sectors
+  .panel.panel-info.sectors{style: 'margin-bottom: 170px;'}
     .panel-heading
-      .panel-title Industry Sectors
+      .panel-title
+        %span.badge.pull-right
+          Total Companies:
+          &nbsp;
+          = number_with_delimiter(Company.count)
+        Industry Sectors
     .panel-body
       %table.table.table-condensed.sectors
         - sectors.each_slice(4) do |sectors|
