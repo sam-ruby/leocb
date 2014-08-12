@@ -21,6 +21,27 @@
 
 en:
   hello: "Hello world"
-  Companies: "Commpanies"
 zh:
+  Chinese: "中文"
+  Sign Up: "注册"
+  Log In: "登录"
   Companies: '公司'
+  People: "人物"
+  Investment Firms: "投资机构"
+  Incubators: "孵化器"
+  Funding Events: "投资事件"
+  News: "新闻"
+  Search: "搜索"
+  Create a Company: "添加公司"
+  Industry Sectors: "产业分类"
+  Total Companies: "总共"
+  Company Overview: "基本概况"
+  Name: "名称"
+  Headquarters: "地址"
+  Sector: "领域"
+  Status: "状态"
+  Stage: "阶段"
+  Tags: "标签"
+  Website: "网址"
+  Team: "团队"
+  Products: "产品"

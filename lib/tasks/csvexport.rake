@@ -139,42 +139,48 @@ class LeoMigrationSecond < LeoMigration
       next if line_num == 1 
       fields = line.split(/\t/).map {|x|x.strip}
       next if fields[0].empty?
-      create_sector(fields[7,8])
       create_company(fields)
-
-      start_index = 10
-      10.times do |x|
-        create_person(
-          fields[start_index..start_index+3])
-        start_index += 4
-      end
-
-      5.times do |x|
-        create_investor(
-          fields[start_index..start_index+2])
-        start_index += 3
-      end
-      
-      5.times do |x|
-        create_product(
-          fields[start_index..start_index+1])
-        start_index += 2
-      end
-
-      # skip competitor
-      # 3
-      if lang == 'en'
-        start_index += 1
-      else
-        start_index += 3
-      end
-
-      10.times do |x|
-        create_milestone(
-          fields[start_index..start_index+1])
-        start_index += 2
-      end
     end
+  end
+  
+  def create_sector(sec_fields)
+    unless sec_fields[0].empty?
+      self.sector = CSector.find_or_create_by(
+        name: sec_fields[0])
+    end
+  end
+        
+  def create_company(fields)
+    self.company = CCompany.find_or_create_by(
+      company_id: fields[0],
+      website: fields[1],
+      name: fields[2],
+      short_name_e: fields[3],
+      short_name_c: fields[4],
+      description: fields[5],
+      city: fields[6],
+      telephone: fields[7],
+      fax: fields[8],
+      postcode: fields[9],
+      address: fields[10],
+      sector_name: fields[11],
+      founded: fields[12],
+      headquarters: fields[13],
+      investment_period_1: fields[14],
+      investment_amount_1: fields[15],
+      investment_tag_1: fields[16],
+      investment_period_2: fields[17],
+      investment_amount_2: fields[18],
+      investment_tag_2: fields[19],
+      investment_period_3: fields[20],
+      investment_amount_3: fields[21],
+      investment_tag_3: fields[22],
+      investment_period_4: fields[23],
+      investment_amount_4: fields[24],
+      investment_tag_4: fields[25],
+      investment_period_5: fields[26],
+      investment_amount_5: fields[27],
+      investment_tag_5: fields[28])
   end
 end
 

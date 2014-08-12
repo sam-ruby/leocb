@@ -43,7 +43,7 @@
       .panel.panel-info
         .panel-heading
           .panel-title
-            Companies
+            = t('Companies')
         .panel-body
           = pagination
           %table.table.companies
@@ -76,7 +76,7 @@
       .panel.panel-info.sector-cont
         .panel-heading
           .panel-title
-            Industry Sectors
+            = t('Industry Sectors')
 
         .list-group.sector-cont
           - sectors = Company.select('sector_id, count(*) company_count').where('sector_id != 16').group('sector_id').order('company_count').reverse_order
@@ -89,7 +89,7 @@
       .panel.panel-info.news-cont
         .panel-heading
           .panel-title
-            News
+            = t('News')
         .panel-body
           .row
             .col-md-6.col-lg-6.col-sm-6
@@ -97,5 +97,3 @@
           .news-cont
             Tracking The Rise Of Micro-Funds
             Posted July 24, 2014
-
-

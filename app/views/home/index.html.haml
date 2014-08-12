@@ -4,10 +4,10 @@
     .panel-heading
       .panel-title
         %span.badge.pull-right
-          Total Companies:
-          &nbsp;
+          = t('Total Companies')
+          &nbsp;:&nbsp;
           = number_with_delimiter(Company.count)
-        Industry Sectors
+        = t('Industry Sectors')
     .panel-body
       %table.table.table-condensed.sectors
         - sectors.each_slice(4) do |sectors|

@@ -10,8 +10,8 @@
             English
         
         %li
-          %a{href: "/?locale=zh"}
-            Chinese
+          %a{href: "/?locale=zh"} 中文
+
       - else
         %li
           %a{href: "/?locale=en"}
@@ -19,15 +19,15 @@
 
         %li.active
           %a{href: "/?locale=zh"}
-            Chinese
+            = t(:Chinese)
     
     %ul.nav.navbar-nav.navbar-right
       %li
         %a{href: "/"}
-          Sign Up
+          = t('Sign Up')
       %li
         %a{href: "/"}
-          Log In
+          = t('Log In')
 
 .container
   .category-container
@@ -35,18 +35,16 @@
       - Category.all.each do |cat| 
         %span.cat
           = link_to t(cat.name), action: :list 
-          /
-            %br
-            %span.entries
-              = number_with_delimiter(cat.entries)
   
   .row.company-search
     .col-md-6.col-md-offset-2
       %input.form-control{type: :search, placeholder: 'Search for Company'}
     .col-md-1
-      %button.btn.btn-primary{type: :button} Search
+      %button.btn.btn-primary{type: :button}
+        = t('Search')
     .col-md-1
-      %button.btn.btn-success{type: :button} Create a Company
+      %button.btn.btn-success{type: :button}
+        = t('Create a Company')
   
   .main-content
     = yield :main_content
