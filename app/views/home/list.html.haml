@@ -83,10 +83,10 @@
 
         .list-group.sector-cont
           - sectors = Company.select('sector_id, count(*) company_count').where('sector_id != 16').group('sector_id').order('company_count').reverse_order
-          - sectors[0, 20].each do |sector|
+          - sectors[0, 28].each do |sector|
             - sec_name = Sector.find(sector.sector_id).name
             = link_to(url_for(action: :list, sector_id: sector.sector_id), class: 'list-group-item') do
-              %span.badge= sector.company_count 
+              %span.badge= number_with_delimiter(sector.company_count) 
               = sec_name
       
       .panel.panel-info.news-cont
