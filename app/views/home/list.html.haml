@@ -69,7 +69,10 @@
                               - if c.website
                                 %a{href: c.website, target: '_blank'}
                                   Website
-                              = c.sector.name + ', ' + c.location.gsub(/\"/, '')
+                              - if c.location
+                                = c.sector.name + ', ' + c.location.gsub(/\"/, '')
+                              - else
+                                = c.sector.name
 
           = pagination
     .col-md-4
@@ -79,7 +82,7 @@
             = t('Industry Sectors')
 
         .list-group.sector-cont
-          - sectors = Company.select('sector_id, count(*) company_count').where('sector_id != 16').group('sector_id').order('company_count').reverse_order
+          - sectors = Company.select('sector_id, count(*) company_count').where('sector_id != 16').group('sector_id').having('count(*) > 100 ').order('company_count').reverse_order
           - sectors.each do |sector|
             - sec_name = Sector.find(sector.sector_id).name
             = link_to(url_for(action: :list, sector_id: sector.sector_id), class: 'list-group-item') do

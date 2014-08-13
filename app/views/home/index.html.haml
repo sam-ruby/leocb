@@ -1,5 +1,5 @@
 - content_for :main_content do
-  - sectors = Company.select('sector_id, count(*) company_count').where('sector_id != 16').group('sector_id').order('company_count').reverse_order
+  - sectors = Company.select('sector_id, count(*) company_count').where('sector_id != 16').group('sector_id').order('company_count').having('count(*) > 100').reverse_order
   .panel.panel-info.sectors{style: 'margin-bottom: 170px;'}
     .panel-heading
       .panel-title
