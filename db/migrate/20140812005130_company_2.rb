@@ -1,15 +1,6 @@
 class Company2 < ActiveRecord::Migration
   def change
-    reversible do |dir|
-      dir.up {
-        ActiveRecord::Base.connection.schema_search_path = 'chinese'
-      }
-      dir.down {
-        ActiveRecord::Base.connection.schema_search_path = 'public'
-      }
-    end
-    
-    create_table(:big_table) do |t|
+    create_table('chinese.big_table') do |t|
       t.string   "sector_name"
       t.string   'lang'
       t.integer 'company_id'
@@ -121,13 +112,13 @@ class Company2 < ActiveRecord::Migration
       t.datetime "created_at"
       t.datetime "updated_at"
     end
-    add_index :big_table, [:company_id, :lang, :name],
-      {unique: true, name: 'big_table_name_company_id_lang_index'} 
+    add_index 'chinese.big_table', [:company_id, :lang, :name],
+      {unique: true, name: 'chinese.big_table_name_company_id_lang_index'} 
     
-    add_index :big_table, [:website],
-      {name: 'big_table_website_index'} 
+    add_index 'chinese.big_table', [:website],
+      {name: 'chinese.big_table_website_index'} 
 
-    create_table(:big_table_dupes) do |t|
+    create_table('chinese.big_table_dupes') do |t|
       t.string   "sector_name"
       t.integer 'company_id'
       t.string 'lang'
@@ -239,16 +230,8 @@ class Company2 < ActiveRecord::Migration
       t.datetime "created_at"
       t.datetime "updated_at"
     end
-    add_index :big_table_dupes, [:company_id, :lang, :name],
-      {unique: true, name: 'big_table_dupes_name_company_id_lang_index'} 
-
-    reversible do |dir|
-      dir.up {
-        ActiveRecord::Base.connection.schema_search_path = 'public'
-      }
-      dir.down {
-        ActiveRecord::Base.connection.schema_search_path = 'chinese'
-      }
+    add_index 'chinese.big_table_dupes', [:company_id, :lang, :name],
+      {unique: true, name: 'chinese.big_table_dupes_name_company_id_lang_index'} 
     end
   end
 end
