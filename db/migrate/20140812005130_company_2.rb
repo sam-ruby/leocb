@@ -112,11 +112,11 @@ class Company2 < ActiveRecord::Migration
       t.datetime "created_at"
       t.datetime "updated_at"
     end
-    add_index 'big_table', [:company_id, :lang, :name],
-      {unique: true, name: 'chinese.big_table_name_company_id_lang_index'} 
+    add_index 'chinese.big_table', [:company_id, :lang, :name],
+      {unique: true, name: 'big_table_name_company_id_lang_index'} 
     
-    add_index 'big_table', [:website],
-      {name: 'chinese.big_table_website_index'} 
+    add_index 'chinese.big_table', [:website],
+      {name: 'big_table_website_index'} 
 
     create_table('chinese.big_table_dupes') do |t|
       t.string   "sector_name"
@@ -230,7 +230,7 @@ class Company2 < ActiveRecord::Migration
       t.datetime "created_at"
       t.datetime "updated_at"
     end
-    add_index 'big_table_dupes', [:company_id, :lang, :name],
-      {unique: true, name: 'chinese.big_table_dupes_name_company_id_lang_index'} 
+    add_index 'chinese.big_table_dupes', [:company_id, :lang, :name],
+      {unique: true, name: 'big_table_dupes_name_company_id_lang_index'} 
   end
 end
