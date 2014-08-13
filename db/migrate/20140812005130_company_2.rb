@@ -232,6 +232,5 @@ class Company2 < ActiveRecord::Migration
     end
     add_index 'chinese.big_table_dupes', [:company_id, :lang, :name],
       {unique: true, name: 'chinese.big_table_dupes_name_company_id_lang_index'} 
-    end
   end
 end
