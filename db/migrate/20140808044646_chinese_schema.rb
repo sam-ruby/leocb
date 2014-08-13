@@ -31,7 +31,7 @@ class ChineseSchema < ActiveRecord::Migration
       t.belongs_to :sector
       t.integer 'company_id'
       t.string 'website'
-      t.date 'start_date'
+      t.string'start_date'
       t.string 'location'
       t.string 'status'
       t.string 'stage'
@@ -58,7 +58,7 @@ class ChineseSchema < ActiveRecord::Migration
 
     create_table(:investors) do |t|
       t.belongs_to :company
-      t.date 'investment_period'
+      t.string 'investment_period'
       t.string 'name'
       t.decimal 'investment_amount'
       t.datetime "created_at"
@@ -80,7 +80,7 @@ class ChineseSchema < ActiveRecord::Migration
     create_table(:mile_stones) do |t|
       t.belongs_to :company
       t.text 'name'
-      t.date 'milestone_date'
+      t.string 'milestone_date'
       t.datetime "created_at"
       t.datetime "updated_at"
     end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140812005130) do
+ActiveRecord::Schema.define(version: 20140813075626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20140812005130) do
     t.integer  "sector_id"
     t.integer  "company_id"
     t.string   "website"
-    t.date     "start_date"
+    t.string   "start_date"
     t.string   "location"
     t.string   "status"
     t.string   "stage"
@@ -39,13 +39,22 @@ ActiveRecord::Schema.define(version: 20140812005130) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "short_name_e"
+    t.string   "short_name_c"
+    t.string   "city"
+    t.string   "telephone"
+    t.string   "fax"
+    t.string   "postcode"
+    t.string   "address"
+    t.string   "founded"
+    t.string   "headquarters"
   end
 
   add_index "companies", ["company_id", "name"], name: "company_name_company_id_index", unique: true, using: :btree
 
   create_table "investors", force: true do |t|
     t.integer  "company_id"
-    t.date     "investment_period"
+    t.string   "investment_period"
     t.string   "name"
     t.decimal  "investment_amount"
     t.datetime "created_at"
@@ -57,7 +66,7 @@ ActiveRecord::Schema.define(version: 20140812005130) do
   create_table "mile_stones", force: true do |t|
     t.integer  "company_id"
     t.text     "name"
-    t.date     "milestone_date"
+    t.string   "milestone_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
