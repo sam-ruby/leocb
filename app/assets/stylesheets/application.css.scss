@@ -34,11 +34,13 @@ span.cat {
     }
   }
 }
-.category-container {
-  text-align: center;
-  width: 100%;
-  .category-inner-block {
-    display: inline-block;
+.container {
+  .category-container {
+    text-align: center;
+    width: 100%;
+    .category-inner-block {
+      display: inline-block;
+    }
   }
 }
 .sector-cont {
@@ -168,6 +170,27 @@ table.companies {
   text-align: center;
   .pagination {
     margin: 0px !important;
+  }
+}
+.series {
+  text-align: center;
+  border: 1px solid #ddd;
+  width: 60px;
+  span.sr-label {
+    font-size: 12px;
+    font-weight: bold;
+  }
+  span.letter {
+    display: inline-block;
+    color: rgb(60, 225, 60);
+    font-size: 28px;
+    margin-top: -8px;
+    font-weight: 900;
+  }
+}
+.milestones {
+  td.ms-date {
+    width: 90px;
   }
 }
 

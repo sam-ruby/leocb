@@ -42,14 +42,9 @@
                     %td= @company.location.gsub(/"/, '')
                 
                 - if @company.investors.length > 0
-                  - total_amt = 0
-                  - @company.investors.each do |inv|
-                    - next if inv.investment_amount.nil?
-                    - total_amt += inv.investment_amount
-                  - if total_amt > 0
-                    %tr
-                      %td
-                      %td
+                  %tr
+                    %td= t('Funding')
+                    %td= @company.investors.first.investment_amount
                         
                 - if @company.sector
                   %tr
@@ -104,14 +99,15 @@
             .panel-title #{t('Funding Events')} (#{@company.investors.length})
           %table.table.table-condensed
             - img = nil
+            - series = ('A'..'Z').to_a
             - @company.investors.each do |investor|
-              - if img.nil? or img =~ /seriesa.png/
-                - img = '/assets/seriesb.png'
-              - elsif img =~ /serieb.png/
-                - img = '/assets/seriesa.png'
               %tr
-                %td.img 
-                  %img{src: img}
+                %td
+                  .series
+                    %span.sr-label SERIES
+                    %br
+                    %span.letter
+                      = series.shift
                 %td.details
                   .investment-details
                     .amount
@@ -121,6 +117,18 @@
                     .name
                       Investors: &nbsp;
                       = investor.name
+      
+      - if @company.mile_stones.length > 0 
+        .panel.panel-info.milestones
+          .panel-heading
+            .panel-title= t('Mile Stones') 
+          %table.table.table-condensed
+            - @company.mile_stones.each do |mile_stone|
+              %tr
+                %td.ms-date
+                  = mile_stone.milestone_date
+                %td.milestone-details
+                  = mile_stone.name
           
       - if @company.products.length > 0 
         .panel.panel-info
@@ -144,9 +152,9 @@
                     %td
                       .product-details
                         .name
-                          = prod.name
+                          = prod.name.gsub(/"/, '')
                         .description
-                          = prod.description
+                          = prod.description.gsub(/"/, '')
 
       /
         .panel.panel-info
