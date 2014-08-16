@@ -1,0 +1,33 @@
+%ul.pagination
+  - if page == 1
+    %li.disabled
+      %span
+        &laquo;
+  - else
+    %li
+      = link_to (url_for(link_params.merge(page: 1))) do
+        %span
+          &laquo;
+
+  - page_list.each do |curr_page|
+    - if page == curr_page
+      %li.active
+        %span
+          = curr_page
+    - else
+      %li
+        = link_to (url_for(link_params.merge(page: curr_page))) do
+          %span
+            = curr_page
+    
+  - if page == total_pages
+    %li.disabled
+      %span
+        &raquo;
+  - else
+    %li
+      = link_to (url_for(link_params.merge(page: total_pages))) do
+        %span
+          &raquo;
+
+

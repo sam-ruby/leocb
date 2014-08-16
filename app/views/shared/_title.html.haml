@@ -4,20 +4,20 @@
       %a.navbar-brand{href: '/'}
         New Crunch Base
     %ul.nav.navbar-nav
-      - if params[:locale] == 'en'
-        %li.active
+      - if params[:locale] == 'zh'
+        %li
           %a{href: "/?locale=en"}
             English
         
-        %li
+        %li.active
           %a{href: "/?locale=zh"} 中文
 
       - else
-        %li
+        %li.active
           %a{href: "/?locale=en"}
             English
 
-        %li.active
+        %li
           %a{href: "/?locale=zh"}
             = t(:Chinese)
     

@@ -2,6 +2,14 @@ class HomeController < ApplicationController
   before_action :set_locale
 
   def index
+    page = params[:page].to_i == 0 ? 1 : params[:page].to_i
+    limit = 12
+    @sectors = Company.select('sector_id, count(*) company_count').group('sector_id').order('company_count').reverse_order.limit(limit).offset((page-1)*limit)
+    sector_count = Sector.count
+    
+    @page = page
+    @limit = limit
+    @page_list, @total_pages = get_page_list(@page, sector_count, @limit)
   end
 
   def list
@@ -10,30 +18,17 @@ class HomeController < ApplicationController
     limit = 10
     if sector_id == 0
       @companies = Company.all.order(start_date: :desc).limit(limit).offset((page-1)*limit)
-      @c_size = Company.count
+      c_size = Company.count
     else
       @companies = Company.where('sector_id = ?', sector_id).order(
         start_date: :desc).limit(limit).offset((page-1)*limit)
-      @c_size = Company.where('sector_id = ?', sector_id).count
+      c_size = Company.where('sector_id = ?', sector_id).count
     end
+    @sector_id = sector_id
+    
     @page = page
     @limit = limit
-    @sector_id = sector_id
-    @total_pages = (@c_size/@limit.to_f).round
-    page_list = []
-
-    if page - 5 <= 0
-      (1..page).to_a.each {|x| page_list.push x}
-    else
-      ((page-5)..page).to_a.each {|x| page_list.push x}
-    end
-
-    if ((10 - page_list.size) + page) > @total_pages
-      (page+1..@total_pages).to_a.each {|x| page_list.push x}
-    else
-      ((page+1)..(page + (10-page_list.size))).to_a.each {|x| page_list.push x }
-    end
-    @page_list = page_list
+    @page_list, @total_pages = get_page_list(@page, c_size, @limit)
   end
 
   def company

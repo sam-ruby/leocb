@@ -1,42 +1,3 @@
-- pagination = capture_haml do 
-  .pagination-cont
-    %ul.pagination
-      - if @page == 1
-        %li.disabled
-          %span
-            &laquo;
-      - else
-        %li
-          = link_to (url_for(action: 'list',
-            sector_id: @sector_id, page: 1)) do
-            %span
-              &laquo;
-
-      - @page_list.each do |curr_page|
-        - if @page == curr_page
-          %li.active
-            %span
-              = curr_page
-        - else
-          %li
-            = link_to (url_for(action: 'list',
-              sector_id: @sector_id, page: curr_page)) do
-              %span
-                = curr_page
-
-        
-      - if @page == @total_pages
-        %li.disabled
-          %span
-            &raquo;
-      - else
-        %li
-          = link_to (url_for(action: 'list',
-            sector_id: @sector_id, page: @total_pages)) do
-            %span
-              &raquo;
-
-
 - content_for :main_content do
   .row
     .col-md-8
@@ -45,7 +6,8 @@
           .panel-title
             = t('Companies')
         .panel-body
-          = pagination
+          .pagination-cont
+            = render partial: 'shared/pagination', locals: {page: @page, link_params: {action: :list, sector_id: @sector_id}, page_list: @page_list, total_pages: @total_pages}
           %table.table.companies
             %tbody
               - pic_index = 0
@@ -74,7 +36,8 @@
                               - else
                                 = c.sector.name
 
-          = pagination
+          .pagination-cont
+            = render partial: 'shared/pagination', locals: {page: @page, link_params: {action: :list, sector_id: @sector_id}, page_list: @page_list, total_pages: @total_pages}
     .col-md-4
       .panel.panel-info.sector-cont
         .panel-heading

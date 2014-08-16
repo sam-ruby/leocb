@@ -1,5 +1,4 @@
 - content_for :main_content do
-  - sectors = Company.select('sector_id, count(*) company_count').where('sector_id != 16').group('sector_id').order('company_count').reverse_order
   .panel.panel-info.sectors{style: 'margin-bottom: 170px;'}
     .panel-heading
       .panel-title
@@ -9,8 +8,10 @@
           = number_with_delimiter(Company.count)
         = t('Industry Sectors')
     .panel-body
+      .pagination-cont
+        = render partial: 'shared/pagination', locals: {page: @page, link_params: {action: :index}, page_list: @page_list, total_pages: @total_pages}
       %table.table.table-condensed.sectors
-        - sectors[0, 28].each_slice(4) do |sectors|
+        - @sectors.each_slice(4) do |sectors|
           %tr
           - sectors.each do |sector|
             %td
