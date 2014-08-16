@@ -113,7 +113,7 @@
                     .amount
                       = investor.investment_amount
                     .period
-                      = investor.investment_period
+                      = investor.investment_period.gsub(/"/, '') rescue ''
                     .name
                       Investors: &nbsp;
                       = investor.name
