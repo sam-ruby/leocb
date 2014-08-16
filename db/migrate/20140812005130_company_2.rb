@@ -1,6 +1,15 @@
 class Company2 < ActiveRecord::Migration
   def change
-    create_table('chinese.big_table') do |t|
+    reversible do |dir|
+      dir.up do
+        ActiveRecord::Base.connection.schema_search_path =  'chinese'
+      end
+      
+      dir.down do
+        ActiveRecord::Base.connection.schema_search_path =  'public'
+      end
+    end
+    create_table('big_table') do |t|
       t.string   "sector_name"
       t.string   'lang'
       t.integer 'company_id'
@@ -56,19 +65,19 @@ class Company2 < ActiveRecord::Migration
       t.string 'p10_position'
       t.string 'i1_investment_period'
       t.string 'i1_name'
-      t.decimal 'i1_investment_amount'
+      t.string 'i1_investment_amount'
       t.string 'i2_investment_period'
       t.string 'i2_name'
-      t.decimal 'i2_investment_amount'
+      t.string 'i2_investment_amount'
       t.string 'i3_investment_period'
       t.string 'i3_name'
-      t.decimal 'i3_investment_amount'
+      t.string 'i3_investment_amount'
       t.string 'i4_investment_period'
       t.string 'i4_name'
-      t.decimal 'i4_investment_amount'
+      t.string 'i4_investment_amount'
       t.string 'i5_investment_period'
       t.string 'i5_name'
-      t.decimal 'i5_investment_amount'
+      t.string 'i5_investment_amount'
       t.string 'prod1_name'
       t.text 'prod1_description'
       t.string 'prod2_name'
@@ -112,13 +121,13 @@ class Company2 < ActiveRecord::Migration
       t.datetime "created_at"
       t.datetime "updated_at"
     end
-    add_index 'chinese.big_table', [:company_id, :lang, :name],
+    add_index 'big_table', [:company_id, :lang, :name],
       {unique: true, name: 'big_table_name_company_id_lang_index'} 
     
-    add_index 'chinese.big_table', [:website],
+    add_index 'big_table', [:website],
       {name: 'big_table_website_index'} 
 
-    create_table('chinese.big_table_dupes') do |t|
+    create_table('big_table_dupes') do |t|
       t.string   "sector_name"
       t.integer 'company_id'
       t.string 'lang'
@@ -174,19 +183,19 @@ class Company2 < ActiveRecord::Migration
       t.string 'p10_position'
       t.string 'i1_investment_period'
       t.string 'i1_name'
-      t.decimal 'i1_investment_amount'
+      t.string 'i1_investment_amount'
       t.string 'i2_investment_period'
       t.string 'i2_name'
-      t.decimal 'i2_investment_amount'
+      t.string 'i2_investment_amount'
       t.string 'i3_investment_period'
       t.string 'i3_name'
-      t.decimal 'i3_investment_amount'
+      t.string 'i3_investment_amount'
       t.string 'i4_investment_period'
       t.string 'i4_name'
-      t.decimal 'i4_investment_amount'
+      t.string 'i4_investment_amount'
       t.string 'i5_investment_period'
       t.string 'i5_name'
-      t.decimal 'i5_investment_amount'
+      t.string 'i5_investment_amount'
       t.string 'prod1_name'
       t.text 'prod1_description'
       t.string 'prod2_name'
@@ -230,7 +239,17 @@ class Company2 < ActiveRecord::Migration
       t.datetime "created_at"
       t.datetime "updated_at"
     end
-    add_index 'chinese.big_table_dupes', [:company_id, :lang, :name],
+    add_index 'big_table_dupes', [:company_id, :lang, :name],
       {unique: true, name: 'big_table_dupes_name_company_id_lang_index'} 
+      
+    reversible do |dir|
+      dir.up do
+        ActiveRecord::Base.connection.schema_search_path =  'public'
+      end
+      
+      dir.down do
+        ActiveRecord::Base.connection.schema_search_path =  'chinese'
+      end
+    end
   end
 end

@@ -263,6 +263,7 @@ class BaseTable
       inv_fields[0].empty?
       investor = Investor.find_or_create_by(
         investment_period: inv_fields[0],
+        investment_amount: inv_fields[1],
         name: inv_fields[2])
       investor.company = self.company
       investor.save

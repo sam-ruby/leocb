@@ -60,7 +60,7 @@ class ChineseSchema < ActiveRecord::Migration
       t.belongs_to :company
       t.string 'investment_period'
       t.string 'name'
-      t.decimal 'investment_amount'
+      t.string 'investment_amount'
       t.datetime "created_at"
       t.datetime "updated_at"
     end

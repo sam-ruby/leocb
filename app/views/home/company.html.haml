@@ -5,71 +5,80 @@
         .panel-heading
           .panel-title= t('Company Overview')
         .panel-body
-          - if @company.website
-            %a{href: @company.website, target: '_blank'}
-              %img{src: '/assets/companies1.jpeg'}
-          - else
-            %img{src: '/assets/companies1.jpeg'}
-
-          = @company.description.gsub(/"/, '') || '-'
-        %table.table.table-condensed
-          - if @company.name
-            %tr
-              %td= t('Name')
-              %td= @company.name.gsub(/"/, '') || ' - '
-
-          - if @company.start_date
-            %tr
-              %td Founded
-              %td= @company.start_date
-          
-          - if @company.persons.length > 0
-            %tr
-              %td Founders
-              %td= @company.persons[0,2].map {|p| p.name.gsub(/"/, '')}.join()
-          
-          - if @company.location
-            %tr
-              %td= t('Headquarters')
-              %td= @company.location.gsub(/"/, '')
-          
-          - if @company.investors.length > 0
-            - total_amt = 0
-            - @company.investors.each do |inv|
-              - next if inv.investment_amount.nil?
-              - total_amt += inv.investment_amount
-            - if total_amt > 0
-              %tr
-                %td
-                %td
-                  
-          - if @company.sector
-            %tr
-              %td= t('Sector')
-              %td= @company.sector.name.gsub(/"/, '')
-          
-          - if @company.status
-            %tr
-              %td= t('Status')
-              %td= @company.status.gsub(/"/, '')
-          
-          - if @company.stage
-            %tr
-              %td= t('Stage')
-              %td= @company.stage.gsub(/"/, '')
-          
-          - if @company.tags
-            %tr
-              %td= t('Tags')
-              %td= @company.tags.gsub(/"/, '')
-          
-          - if @company.website
-            %tr
-              %td= t('Website')
-              %td
+          .row
+            .col-md-2.col-lg-2.col-lg-sm-2
+              - if @company.website
                 %a{href: @company.website, target: '_blank'}
-                  = @company.website
+                  %img{src: '/assets/companies1.jpeg'}
+              - else
+                %img{src: '/assets/companies1.jpeg'}
+            .col-md-10.col-lg-10.col-lg-sm-10
+              %table.table.table-condensed
+                - if @company.name
+                  %tr
+                    %td= t('Name')
+                    %td= @company.name.gsub(/"/, '') || ' - '
+                
+                - if @company.website
+                  %tr
+                    %td= t('Website')
+                    %td
+                      %a{href: @company.website, target: '_blank'}
+                        = @company.website
 
+                - if @company.start_date
+                  %tr
+                    %td Founded
+                    %td= @company.start_date.gsub(/"/, '')
+                
+                - if @company.persons.length > 0
+                  %tr
+                    %td Founders
+                    %td= @company.persons[0,2].map {|p| p.name.gsub(/"/, '')}.join()
+                
+                - if @company.location
+                  %tr
+                    %td= t('Headquarters')
+                    %td= @company.location.gsub(/"/, '')
+                
+                - if @company.investors.length > 0
+                  - total_amt = 0
+                  - @company.investors.each do |inv|
+                    - next if inv.investment_amount.nil?
+                    - total_amt += inv.investment_amount
+                  - if total_amt > 0
+                    %tr
+                      %td
+                      %td
+                        
+                - if @company.sector
+                  %tr
+                    %td= t('Sector')
+                    %td= @company.sector.name.gsub(/"/, '')
+                
+                - if @company.status
+                  %tr
+                    %td= t('Status')
+                    %td= @company.status.gsub(/"/, '')
+                
+                - if @company.stage
+                  %tr
+                    %td= t('Stage')
+                    %td= @company.stage.gsub(/"/, '')
+                
+                - if @company.tags
+                  %tr
+                    %td= t('Tags')
+                    %td= @company.tags.gsub(/"/, '')
+                
+                 
+      - if @company.description.length > 0
+        .panel.panel-info.team
+          .panel-heading
+            .panel-title
+              = t('Description')
+          .panel-body
+            = @company.description.gsub(/"/, '') || '-'
           
       - if @company.persons.length > 0
         .panel.panel-info.team
