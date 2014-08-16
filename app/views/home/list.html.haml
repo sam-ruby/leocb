@@ -19,11 +19,11 @@
                       - pic_index = 1
                     %td
                       .comp-cont
-                        = link_to(url_for(action: :company, c_id: c.id)) do
+                        = link_to(url_for(action: :company, c_id: c.company_id)) do
                           %span.c-picture
                             %img{src: "/assets/companies#{pic_index}.jpeg"}
                         .caption
-                          = link_to(url_for(action: :company, c_id: c.id)) do
+                          = link_to(url_for(action: :company, c_id: c.company_id)) do
                             .c-name
                               %h4
                                 = c.name.gsub(/\"/, '')

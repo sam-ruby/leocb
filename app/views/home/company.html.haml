@@ -126,9 +126,9 @@
             - @company.mile_stones.each do |mile_stone|
               %tr
                 %td.ms-date
-                  = mile_stone.milestone_date
+                  = mile_stone.milestone_date.gsub(/"/, '')
                 %td.milestone-details
-                  = mile_stone.name
+                  = mile_stone.name.gsub(/"/, '')
           
       - if @company.products.length > 0 
         .panel.panel-info

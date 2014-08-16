@@ -36,7 +36,7 @@ class HomeController < ApplicationController
     if comp_id == 0
       @company = Company.first
     else
-      @company = Company.find(comp_id)
+      @company = Company.where(company_id: comp_id).first
     end
   end
 
